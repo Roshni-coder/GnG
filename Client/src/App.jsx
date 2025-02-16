@@ -12,6 +12,7 @@ import MyProfile from "./Components/My Profile/MyProfile.jsx";
 import Cartpage from "./Components/Cart Page/Cartpage.jsx";
 import Orders from "./Components/Orders/Orders.jsx";
 import Wishlist from "./Components/Wish List/Wishlist.jsx";
+import Checkout from "./Components/Checkout/Checkout.jsx";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/productlist" element={<ProductList/>}/>
         <Route path="/productDetails/:id" element={<ProductDetail/>}/>
         <Route path="/cartlist" element={<Cartpage/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
       <Footer/>
     </>

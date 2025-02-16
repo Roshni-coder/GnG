@@ -68,7 +68,7 @@ function Navigation() {
     <>
       <nav className="navigation lg:py-2">
         <div className="container lg:gap-4 grid lg:grid-cols-12 m-auto">
-          <div className="col1 lg:col-span-2  p-1">
+          <div className="col1 lg:col-span-2 p-2">
             <Link to="/">
               <h1
                 className="text-center text-[#7d0492] text-[25px] font-[600] sm:text-2xl"

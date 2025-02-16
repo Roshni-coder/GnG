@@ -22,12 +22,12 @@ const StyledBedge = styled(LocalOffer)`
 function RightComponent() {
   return (
     <>
-    <div className="productContent  ">
-      <h1 className="text-[20px] font-[600] my-4 ">
+    <div className="productContent my-4 ">
+      <h1 className="text-[20px] font-[600] py-1 ">
         Red Velvet Fresh Cream Cake Half kg
       </h1>
 
-      <div className="flex items-center  gap-3">
+      <div className="flex items-center py-1 gap-3">
         <span className="text-gray-400 sm:!text-[15px] text-[12px] ">
           Brands :
           <span className="font-[400] text-[12px]  sm:!text-[14px] text-gray-600  pl-1">
@@ -38,12 +38,17 @@ function RightComponent() {
         <span className="text-[13px] sm:!text-[14px] cursor-pointer">Review {5}</span>
       </div>
 
-      <div className="flex items-center gap-4 my-2">
-        <span className="price text-black text-[22px] font-[600]">₹900</span>
-        <span className="oldPricce line-through text-grat-500 text-[13px] sm:!text-[14px] font-[500]">
-          ₹1500
-        </span>
-      </div>
+      <div className="flex items-center gap-4 py-1">
+            <span className="price text-black text-[17px] font-[600]">
+              ₹900
+            </span>
+            <span className="oldPricce line-through text-grat-500 text-[13px] sm:!text-[14px] font-[500]">
+              ₹1500
+            </span>
+            <span className="price text-[#7d0492] text-[14px] font-[500]">
+              20% off
+            </span>
+          </div>
 
       <div className="offers ">
         <Typography style={{fontSize:15}}>Available Offers</Typography>
@@ -70,7 +75,7 @@ function RightComponent() {
           </Typography>
         </SmallText>
       </div>
-       <div className="flex gap-4 items-center mt-5 mb-1">
+       <div className="flex gap-4  items-center mt-3 mb-1">
           <span className="flex items-center gap-2 text-[14px] link cursor-pointer font-[500]">
           <FaRegHeart className="text-[16px] "/> Add to WhishList
           </span>
@@ -88,7 +93,7 @@ function RightComponent() {
               <Flash />
               Buy Now
             </Button>
-          </div>
+            </div>
     </div>
     </>
    
