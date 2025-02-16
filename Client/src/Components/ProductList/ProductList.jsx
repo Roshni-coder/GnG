@@ -17,7 +17,7 @@ function ProductList() {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                className="w-full h-full object-cover duration-300 group-hover:scale-105 transition-all"
               />
             </div>
 

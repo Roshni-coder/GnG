@@ -34,7 +34,7 @@ function RightComponent() {
             BirthDay Cake
           </span>
         </span>
-        <Rating name="sixe-small" defaultValue={4} sixe="small" readOnliy />
+        <Rating name="sixe-small" defaultValue={4} sixe="small" readOnly  />
         <span className="text-[13px] sm:!text-[14px] cursor-pointer">Review {5}</span>
       </div>
 
