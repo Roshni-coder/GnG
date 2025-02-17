@@ -76,7 +76,7 @@ function RightComponent() {
           </Typography>
         </SmallText>
       </div>
-       <div className="flex gap-4  items-center mt-3 mb-1">
+       <div className="flex gap-4  items-center mt-4 mb-1">
           <span className="flex items-center gap-2 text-[14px] link cursor-pointer font-[500]">
           <FaRegHeart className="text-[16px] "/> Add to WhishList
           </span>
@@ -84,7 +84,7 @@ function RightComponent() {
           <GoGitCompare className="text-[18px] "/> Add to Compare
           </span>
         </div>
-        <div className="btns flex justify-start gap-3 items-center lg:mr-5">
+        <div className="btns flex mt-4 justify-start gap-3 items-center lg:mr-5">
           <Link to=''>
             <Button className=" h-[50px] w-[300px] !bg-[#ff9f00]" variant="contained">
               <Cart />

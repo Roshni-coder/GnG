@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 function Checkout() {
   return (
     <section className="py-3">
-      <div className="container flex gap-5">
-        <div className="leftCol w-[70%]">
+      <div className="container lg:flex gap-5">
+        <div className="leftCol lg:w-[70%] w-full">
           <div className="cart bg-white rounded-md shadow-md p-5">
             <h1 className="text-black text-[18px] pl-1">
               Belling Details
@@ -16,8 +16,8 @@ function Checkout() {
             <h6 className="pt-3 mb-2 px-1 text-[13px] font-[500]">
                 Name and Phone *
               </h6>
-              <div className="flex items-center  gap-3">
-                <div className="col w-[50%]">
+              <div className="lg:flex items-center  gap-3">
+                <div className="col lg:w-[50%] w-full">
                   <TextField
                     className="w-full !rounded-none"
                     type="name"
@@ -27,7 +27,7 @@ function Checkout() {
                     variant="filled"
                   />
                 </div>
-                <div className="col w-[50%]">
+                <div className="col w-full lg:mt-0 mt-3   lg:w-[50%]">
                   <TextField
                     className="w-full bg-white"
                     type="phone"
@@ -57,8 +57,8 @@ function Checkout() {
               <h6 className="pt-3 mb-2 px-1 text-[13px] font-[500]">
                 City and State*
               </h6>
-              <div className="flex items-center  gap-3">
-                <div className="col w-[50%]">
+              <div className="lg:flex  items-center  gap-3">
+                <div className="col w-full  lg:w-[50%]">
                   <TextField
                     className="w-full"
                     type="name"
@@ -68,7 +68,7 @@ function Checkout() {
                     variant="filled"
                   />
                 </div>
-                <div className="col w-[50%]">
+                <div className="col w-full lg:mt-0 mt-3 lg:w-[50%]">
                   <TextField
                     className="w-full"
                     type="phone"
@@ -82,8 +82,8 @@ function Checkout() {
               <h6 className="pt-3 mb-2 px-1 text-[13px] font-[500]">
                 PinCode and Alternat Phone *
               </h6>
-              <div className="flex items-center  gap-3">
-                <div className="col w-[50%]">
+              <div className="lg:flex items-center  gap-3">
+                <div className="col w-full lg:w-[50%]">
                   <TextField
                     className="w-full"
                     type="name"
@@ -93,7 +93,7 @@ function Checkout() {
                   variant="filled"
                   />
                 </div>
-                <div className="col w-[50%]">
+                <div className="col w-full lg:mt-0 mt-3  lg:w-[50%]">
                   <TextField
                     className="w-full"
                     type="phone"
@@ -120,10 +120,10 @@ function Checkout() {
                 </div>
               </div>
               <div className="btns flex justify-center gap-2 items-center mt-5 ">
-            <button className="sm:h-[50px]  w-[50%] !bg-[#ff9f00]" variant="contained">
+            <button className="h-[40px]  w-[50%] !bg-[#ff9f00] font-500 !text-[14px]" variant="contained">
               Change
             </button>
-            <button className=" sm:h-[50px] w-[50%]  !bg-[#fb541b] " variant="contained">
+            <button className=" h-[40px] w-[50%]  !bg-[#fb541b] font-500 !text-[14px]" variant="contained">
               Save 
             </button>
             </div>
@@ -131,7 +131,7 @@ function Checkout() {
           </div>
         </div>
 
-        <div className="rightPart w-full lg:!m-0 mt-4 lg:w-[30%]">
+        <div className="rightPart w-full lg:!mt-0 mt-3 lg:w-[30%]">
           <div className="shadow-md rounded-md  bg-white p-5 ">
             <h3 className="pb-3 px-1">Delivery Address</h3>
             <Divider />
@@ -142,7 +142,7 @@ function Checkout() {
             <p className="my-1 mx-1"><span className="font-bold">Phone: </span> 6732867378</p>
             
             <Link to='/orders'>
-            <button className="btn-org w-full rounded-none flex gap-1 items-center justify-center">
+            <button className="btn-org w-full sm:w-[50%] lg:w-full rounded-none flex gap-1 items-center justify-center">
               <HiShoppingBag className="text-[22px] pb-1" />
               Deliver Here
             </button>
