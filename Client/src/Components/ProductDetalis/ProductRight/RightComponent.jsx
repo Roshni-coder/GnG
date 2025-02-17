@@ -4,6 +4,7 @@ import { Typography, Box, styled, Button } from "@mui/material";
 import LocalOffer from "@mui/icons-material/LocalOffer";
 import { FaRegHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
+import {Link} from 'react-router-dom'
 import { ShoppingCart as Cart, FlashOn as Flash } from "@mui/icons-material";
 const SmallText = styled(Box)`
   font-size: 13px;
@@ -84,15 +85,20 @@ function RightComponent() {
           </span>
         </div>
         <div className="btns flex justify-start gap-3 items-center lg:mr-5">
-            <Button className=" sm:h-[50px] md:w-[40%] lg:w-[40%] w-[50%] !p-3 sm:!text-[14px] !text-[11px] !mb-[10px] !mt-[5px]  !bg-[#ff9f00]" variant="contained">
+          <Link to=''>
+            <Button className=" h-[50px] w-[300px] !bg-[#ff9f00]" variant="contained">
               <Cart />
               Add to Cart
             </Button>
-
-            <Button className="!bg-[#fb541b]  sm:h-[50px] md:w-[40%] lg:w-[40%]  w-[50%] !p-3 sm:!text-[14px] !text-[11px]  !mt-[5px] !mb-[10px] " variant="contained">
+            </Link>
+           <Link to='/cartlist'>
+            <Button className="!bg-[#fb541b]  h-[50px] w-[300px]  " variant="contained">
               <Flash />
-              Buy Now
+              Go To Cart
             </Button>
+            </Link>
+           
+            
             </div>
     </div>
     </>

@@ -30,7 +30,7 @@
   background: white; /* Scrollbar track color */
 }
 .reviewScroll::-webkit-scrollbar-thumb{
-  background:#ccc !important;
+  background:white !important;
 }
 .reviewScroll::-webkit-scrollbar{
 width:5px !important;
