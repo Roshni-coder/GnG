@@ -19,20 +19,20 @@ function NavCategory() {
       <nav className="py-1 border-t border-b !border-gray-200 ">
         <div className="container gap-3 m-auto grid lg:grid-cols-12">
           {/* Category Button */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 ">
             <Button
-              className="!text-black gap-1 !flex !items-center !font-[600] w-full"
+              className="!text-black gap-2 !flex !items-center !justify-start !font-[600] w-full"
               onClick={openCategoryPanel}
             >
-              <RiMenu2Fill className="!text-[14px]" />
+              <RiMenu2Fill className="!text-[15px] !ml-0" />
               <p className="!text-[14px] !mb-0"> Shop By Categories</p>
-              <GoTriangleDown className="!text-[16px] ml-auto" />
+              <GoTriangleDown className="!text-[16px] ml-auto " />
             </Button>
           </div>
 
           {/* Navigation Menu */}
-          <div className="lg:col-span-6 hidden lg:block">
-            <ul className="flex items-center justify-center">
+          <div className="lg:col-span-7 hidden    lg:block">
+            <ul className="flex items-center justify-start">
               {menuItems.map((menu) => (
                 <li key={menu.name} className="relative group xl:px-3">
                   <Link to="/">
@@ -68,9 +68,9 @@ function NavCategory() {
           </div>
 
           {/* Delivery Info */}
-          <div className="lg:col-span-3 hidden lg:block">
-            <p className="text-[14px] font-[500] flex items-center justify-end gap-1 mt-1">
-              <MdOutlineRocketLaunch className="text-[16px]" />
+          <div className="lg:col-span-2 hidden lg:block ">
+            <p className="lg:!text-[11px] xl:!text-[14px] font-[500] flex items-center justify-end gap-1 pt-1 ">
+              <MdOutlineRocketLaunch className="text-[14px]" />
               Free International Delivery
             </p>
           </div>

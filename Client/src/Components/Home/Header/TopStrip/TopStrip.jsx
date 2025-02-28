@@ -9,10 +9,10 @@ function TopStrip() {
       setShowmenu(!showMenu);
     }
   return (
-    <div className='top-strip  sm:!py-0 sm:!pt-1 py-2 border-t-[1px] border-gray-300 border-b-[1px] bg-[#7d0492] text-white'>
+    <div className='top-strip  sm:!py-0 sm:!pt-1 !py-1 border-t-[1px] border-gray-300 border-b-[1px] bg-[#7d0492] text-white'>
       <div className="container m-auto flex justify-between ">
         <div className="col1 float-start">
-            <p className='pera text-[10px] sm:!pt-1 md:text-[14px]'> Get up to 50% off now season styles, limited time only ....</p>
+            <p className='pera text-[10px] sm:!pt-1 md:!text-[13px]'> Get up to 50% off now season styles, limited time only ....</p>
         </div>
 
         <div className={showMenu ? "menu-mobile":"menu-web" }>
