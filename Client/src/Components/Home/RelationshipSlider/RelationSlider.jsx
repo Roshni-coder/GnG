@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import RelationData from '../../Consone/RelationData.js';
 
 const RelationSlider = () => (
-  <div className="NavcatSlider bg-gradient-to-b mt-6 to-gray-50">
+  <div className="NavcatSlider bg-gradient-to-b mt-6 ">
     <div className="container bg-white mx-auto px-4 rounded-lg shadow-lg">
       <div className="flex items-center justify-between mb-6 px-6 py-4 border-b border-gray-200">
         <h3 className="text-[20px] font-semibold text-gray-800">For Every Relationship</h3>

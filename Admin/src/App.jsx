@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashBoard from './Pages/DashBoard/DashBoard';
 import Header from './Components/Header/Header.jsx'
 import SideBar from './Components/Sidebar/SideBar.jsx';
+import Login from './Pages/Login/Login.jsx';
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,15 @@ function App() {
         </>
       )
     },
+    {
+      path: '/login',
+      exact:true,
+      element:(
+        <>
+       <Login/>
+        </>
+      )
+    }
   ]);
 
   return <RouterProvider router={router} />;

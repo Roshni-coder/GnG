@@ -23,14 +23,14 @@ function SideBar() {
   }
   return (
     <>
-      <div className="sidebar fixed top-0 left-0 bg-white w-[18%] h-full border-r border-[rgba(0,0,0,0.1)]">
-        <div className="py-2 w-full">
-          <Link to="/dashboard">
-            <h1 className=" justify-start items-center !px-5 text-black flex gap-2 py-2 !text-[25px] !font-bold sm:text-2xl">
-              <FaGift className="text-[22px]" /> GiftNGifts
-            </h1>
-          </Link>
-        </div>
+      <div className="sidebar  fixed top-[0] left-0 w-[18%] bg-white h-full border-r border-[rgba(0,0,0,0.1)]">
+       <div className="py-2 w-full">
+                 <Link to="/dashboard">
+                   <h1 className=" justify-start items-center !px-5 text-black flex gap-2 py-2 !text-[25px] !font-bold sm:text-2xl">
+                     <FaGift className="text-[22px]" /> GiftNGifts
+                   </h1>
+                 </Link>
+               </div>
         <ul className="pt-2 !font-[600]">
           <li>
             <Link to='/dashboard'>
