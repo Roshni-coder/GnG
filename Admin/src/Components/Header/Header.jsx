@@ -40,7 +40,7 @@ function Header() {
           <Link to='/login'>
           <button
             onClick={handleClickMyAcc}
-            className=" cursor-pointer !bg-[#3872fa] text-[18px] !mr-6 text-white  rounded pt-1 !pb-2  px-8   shadow-md border border-gray-100"
+            className=" cursor-pointer !border-2 !border-gray-300 text-[18px] !text-gray-500 !mr-6  rounded pt-1 !pb-2  px-8  "
           >
             Login
           </button>
