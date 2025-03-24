@@ -16,7 +16,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
+<<<<<<< HEAD
   origin: 'http://localhost:5177', // Explicitly allow your frontend URL
+=======
+  origin: 'http://localhost:5174', // Explicitly allow your frontend URL
+>>>>>>> 423da0d (Add Admin Login page)
   credentials: true // Allow cookies and auth headers
 }));
   
