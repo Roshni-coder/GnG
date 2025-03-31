@@ -19,7 +19,7 @@ function Checkout() {
     <div className="container !my-2 lg:w-[80%] lg:mx-w-[80%] w-full lg:flex gap-4">
       <div className="leftPart lg:w-[70%] w-full">
         {/* Billing Details */}
-        <Accordion className="m-2" expanded={isOpenSummary === 0} onChange={() => toggleSummaryPanel(0)}>
+        <Accordion  expanded={isOpenSummary === 0} onChange={() => toggleSummaryPanel(0)}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <h1 className="text-[16px] pl-1">Billing Details</h1>
           </AccordionSummary>
@@ -53,7 +53,7 @@ function Checkout() {
           </AccordionDetails>
         </Accordion>
         {/* Order Summary */}
-        <Accordion className="m-2" expanded={isOpenSummary === 1} onChange={() => toggleSummaryPanel(1)}>
+        <Accordion className="mt-2" expanded={isOpenSummary === 1} onChange={() => toggleSummaryPanel(1)}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <h1 className="text-[16px] pl-1">Order Summary</h1>
           </AccordionSummary>
@@ -71,7 +71,7 @@ function Checkout() {
         </Accordion>
 
         {/* Payment Options */}
-        <Accordion className="m-2" expanded={isOpenSummary === 2} onChange={() => toggleSummaryPanel(2)}>
+        <Accordion className="mt-2" expanded={isOpenSummary === 2} onChange={() => toggleSummaryPanel(2)}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <h1 className="text-[16px] pl-1">Payment Options</h1>
           </AccordionSummary>

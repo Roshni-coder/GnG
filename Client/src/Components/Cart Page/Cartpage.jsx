@@ -1,9 +1,5 @@
 import React from "react";
-import { Divider } from "@mui/material";
-import Button from "@mui/material/Button";
-import { HiShoppingBag } from "react-icons/hi2";
 import CartItems from "./CartItems";
-import { Link } from "react-router-dom";
 import Totalprice from "./Totalprice";
 function Cartpage() {
   return (

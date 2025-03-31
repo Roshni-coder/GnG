@@ -44,7 +44,7 @@ function CartItems() {
             <span className="oldPricce line-through text-grat-500 text text-[10px] sm:!text-[14px] font-[500]">
               ₹1500
             </span>
-            <span className="price text-[#7d0492] sm:text-[14px] text-[10px] font-[600]">
+            <span className="price text-[#7d0492] sm:text-[13px] text-[10px] font-[600]">
               20% off
             </span>
           </div>

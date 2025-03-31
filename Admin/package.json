@@ -16,10 +16,8 @@
     "@mui/icons-material": "^6.4.6",
     "@mui/material": "^6.4.6",
     "@tailwindcss/vite": "^4.0.9",
-<<<<<<< HEAD
-=======
     "firebase": "^11.5.0",
->>>>>>> 423da0d (Add Admin Login page)
+
     "react": "^19.0.0",
     "react-collapse": "^5.1.1",
     "react-dom": "^19.0.0",

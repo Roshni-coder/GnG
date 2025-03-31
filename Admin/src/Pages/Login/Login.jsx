@@ -1,18 +1,4 @@
-<<<<<<< HEAD
-import React from 'react'
 
-function Login() {
-  return (
-    <>
-    <section className="w-full bg-[#f1f1f1]">
-     <h1>login</h1>
-    </section>
-    </>
-  )
-}
-
-export default Login
-=======
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -155,4 +141,3 @@ export default function Login() {
 // };
 
 // export default Login;
->>>>>>> 423da0d (Add Admin Login page)

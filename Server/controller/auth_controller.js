@@ -292,3 +292,98 @@ export const resetpassword = async (req, res) => {
 
     }
 }
+
+// Login otp part----
+;
+//  Request OTP After Entering Email & Password
+export const loginRequestOTP = async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.json({ success: false, message: 'Email and password required' });
+    }
+
+    try {
+        const user = await usermodel.findOne({ email });
+
+        if (!user) {
+            return res.json({ success: false, message: 'Invalid Email' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.json({ success: false, message: 'Invalid Password' });
+        }
+
+        // Generate OTP
+        const otp = String(Math.floor(100000 + Math.random() * 900000));
+
+        // Save OTP in DB
+        user.loginOtp = otp;
+        user.loginOtpExpireAt = Date.now() + 10 * 60 * 1000; // Expires in 10 mins
+        await user.save();
+
+        // Send OTP via email
+        const mailOption = {
+            from: process.env.SENDER_EMAIL,
+            to: email,
+            subject: 'Login OTP',
+            text: `Your OTP for login is: ${otp}`
+        };
+
+        await transporter.sendMail(mailOption);
+
+        return res.json({ success: true, message: 'OTP sent to email' });
+
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+};
+
+//  Verify OTP & Login
+
+export const verifyLoginOTP = async (req, res) => {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+        return res.json({ success: false, message: 'Email and OTP required' });
+    }
+
+    try {
+        const user = await usermodel.findOne({ email });
+
+        if (!user) {
+            return res.json({ success: false, message: 'User not found' });
+        }
+
+        // Ensure OTP is stored and compare as string
+        if (!user.loginOtp || String(user.loginOtp) !== String(otp)) {
+            return res.json({ success: false, message: 'Invalid OTP' });
+        }
+
+        // Check OTP expiration
+        if (Number(user.loginOtpExpireAt) < Date.now()) {
+            return res.json({ success: false, message: 'OTP Expired' });
+        }
+
+        // Clear OTP fields after successful verification
+        user.loginOtp = '';
+        user.loginOtpExpireAt = 0;
+        await user.save();
+
+        // Generate JWT Token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
+        return res.json({ success: true, message: 'Login successful', token });
+
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+};

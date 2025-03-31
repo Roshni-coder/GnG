@@ -109,3 +109,23 @@ footer form input::placeholder {
 .zoomProductSliderThumb .swiper-slide{
   height:auto !important;
 }
+.myAccountTabs li a{
+position:relative; 
+display:block;
+}
+.myAccountTabs li a:before{
+  content :'' ;
+  width:3px;
+  height:50% ;
+  position :absolute;
+  top:50%;
+  left:0px;
+  background:#7d0492 ;
+  transition:all 0.3s ease-in-out;
+  opacity:0;
+  }
+  .myAccountTabs li a.active::before{
+    height:100%;
+    opacity:1;
+    top:0px;
+  }

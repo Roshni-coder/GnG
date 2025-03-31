@@ -4,10 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashBoard from './Pages/DashBoard/DashBoard';
 import Header from './Components/Header/Header.jsx';
 import SideBar from './Components/Sidebar/SideBar.jsx';
-<<<<<<< HEAD
-import Login from './Pages/Login/Login.jsx';
-=======
->>>>>>> 423da0d (Add Admin Login page)
 import ProductList from './Pages/Product Pages/ProductList.jsx';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -25,10 +21,8 @@ import AddCategory from './Pages/Category/AddCategory.jsx';
 import SubCategoryList from './Pages/Category/SubCategoryList.jsx';
 import AddSubCategory from './Pages/Category/AddSubCategory.jsx';
 import UsersList from './Pages/Users Page/UsersList.jsx';
-<<<<<<< HEAD
-=======
 import Login from './Pages/Login/Login.jsx';
->>>>>>> 423da0d (Add Admin Login page)
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

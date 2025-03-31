@@ -8,7 +8,7 @@ import userouter from "./routes/user_routes.js";
 
 
 const app = express();
-const port = process.env.port || 7000
+const port = process.env.port || 3000
 connectDB();
 
 
@@ -16,11 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-<<<<<<< HEAD
-  origin: 'http://localhost:5177', // Explicitly allow your frontend URL
-=======
-  origin: 'http://localhost:5174', // Explicitly allow your frontend URL
->>>>>>> 423da0d (Add Admin Login page)
+  origin: 'http://localhost:5173', // Explicitly allow your frontend URL
   credentials: true // Allow cookies and auth headers
 }));
   

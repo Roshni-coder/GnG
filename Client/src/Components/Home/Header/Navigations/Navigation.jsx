@@ -18,8 +18,9 @@ import { toast } from 'react-toastify'
 import { BsBox } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa6";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { MdOutlineMail } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
+
+// import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineLocalOffer } from "react-icons/md";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -94,7 +95,7 @@ function Navigation() {
                     <div className="absolute hidden group-hover:block top-0   z-10 text-black pt-10">
                       
                       <ul className="list-none m-0 p-2 bg-white text-sm w-40">
-                      <Link to='/myProfile'>
+                        <Link to='/myProfile'>
                         <li className="py-2 px-2 flex gap-2  items-center  hover:bg-gray-100 cursor-pointer">
                         <FaRegUserCircle className="text-[#7d0492] text-[15px]"/>My Account
                         </li>
@@ -109,11 +110,11 @@ function Navigation() {
                         <BsBox className="text-[#7d0492] !text-[14px] " /> Orders
                         </li>
                         </Link>
-                        {!userData.isAccountVerify && (
-                          <li onClick={sendVerifyingotp} className="py-2 px-2 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
-                           < MdOutlineMail className="text-[#7d0492] !text-[15px] "  /> Verify email
-                          </li>
-                        )}
+                        <Link to="/offers">
+                        <li className="py-2 px-2 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
+                        <MdOutlineLocalOffer  className="text-[#7d0492] !text-[14px] " /> Offers
+                        </li>
+                        </Link>
                         <li onClick={logout} className="py-2 px-2 flex items-center gap-2  hover:bg-gray-100 cursor-pointer ">
                          <RiLogoutCircleLine className="text-[#7d0492] !text-[15px] " /> Logout
                         </li>
