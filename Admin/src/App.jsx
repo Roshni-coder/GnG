@@ -22,6 +22,7 @@ import SubCategoryList from './Pages/Category/SubCategoryList.jsx';
 import AddSubCategory from './Pages/Category/AddSubCategory.jsx';
 import UsersList from './Pages/Users Page/UsersList.jsx';
 import Login from './Pages/Login/Login.jsx';
+import SellerPage from './Pages/Seller Page/SellerPage.jsx';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -85,6 +86,10 @@ function App() {
     {
       path: '/users',
       element: <Layout><UsersList/></Layout>
+    },
+    {
+      path: '/sellers',
+      element: <Layout><SellerPage /></Layout>
     },
   ]);
 

@@ -15,7 +15,6 @@ import Wishlist from "./Components/Wish List/Wishlist.jsx";
 import Checkout from "./Components/Checkout/Checkout.jsx";
 import Offers from "./Components/Limited Offers/Offers.jsx";
 
-
 function App() {
   return (
     <>

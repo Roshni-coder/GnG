@@ -12,7 +12,7 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { CiLogout } from "react-icons/ci";
 import { Collapse as ReactCollapse } from "react-collapse";
 import { MyContext } from "../../App.jsx";
-
+import { FiUserPlus } from "react-icons/fi";
 function SideBar() {
   const { setIsOpenAddProductPanel } = useContext(MyContext);
 
@@ -223,6 +223,14 @@ function SideBar() {
               <Button className="w-full !py-3 !font-[600] !justify-start !px-6 flex  !gap-3 !text-[16px] !text-[rgba(0,0,0,0.8)] hover:!bg-[#f1f1f1]">
                 <SiHackthebox className="text-[18px]" />
                 <span style={{ textTransform: "initial" }}>Orders</span>
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to="/sellers">
+              <Button className="w-full !py-3 !font-[600] !justify-start !px-6 flex  !gap-3 !text-[16px] !text-[rgba(0,0,0,0.8)] hover:!bg-[#f1f1f1]">
+                < FiUserPlus  className="text-[18px] font-[600]" />
+                <span style={{ textTransform: "initial" }}>Sellers List</span>
               </Button>
             </Link>
           </li>
