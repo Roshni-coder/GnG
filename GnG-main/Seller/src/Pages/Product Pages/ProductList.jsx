@@ -34,7 +34,9 @@ function ProductList() {
 
   const removeproduct = async (_id) => {
     try {
-      const response = await axios.delete(`http://localhost:7000/api/deleteproduct/${_id}`);
+      const response = await axios.delete(
+        `http://localhost:7000/api/deleteproduct/${_id}`
+      );
       if (response.data.success) {
         setProducts(products.filter((product) => product._id !== _id));
       } else {
@@ -52,7 +54,10 @@ function ProductList() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:7000/api/updateproduct/${_id}`, updatetask[_id]);
+      const response = await axios.put(
+        `http://localhost:7000/api/updateproduct/${_id}`,
+        updatetask[_id]
+      );
       if (response.data.success) {
         setProducts((prevProducts) =>
           prevProducts.map((product) =>
@@ -118,22 +123,27 @@ function ProductList() {
               ) : (
                 products.map((product) => (
                   <tr key={product._id} className="border-b border-gray-200">
-                    <td className="px-4 py-2 cursor-pointer">
+                    <td className="px-6 py-2 cursor-pointer">
                       <Link to="" style={{ textDecoration: "none" }}>
-                        <div className=" flex justify-center items-center gap-4 w-[300px]">
+                        <div className="flex  items-center gap-4 w-[300px]">
                           <div className="img !w-[65px] !h-[65px] rounded-md overflow-hidden">
                             <img
                               src={product.image}
                               className="w-full h-full object-cover"
+                              alt="Product"
                             />
                           </div>
-                          <div className="info !w-[75%]    px-4 !text-center">
+                          <div className="info !w-[75%] text-left">
                             <h3
                               className="!font-[600] text-[13px] text-black"
                               contentEditable
                               suppressContentEditableWarning
                               onBlur={(e) =>
-                                handleupdate(product._id, e.target.innerText, "title")
+                                handleupdate(
+                                  product._id,
+                                  e.target.innerText,
+                                  "title"
+                                )
                               }
                             >
                               {product.title}
@@ -147,7 +157,11 @@ function ProductList() {
                       contentEditable
                       suppressContentEditableWarning
                       onBlur={(e) =>
-                        handleupdate(product._id, e.target.innerText, "categoryname")
+                        handleupdate(
+                          product._id,
+                          e.target.innerText,
+                          "categoryname"
+                        )
                       }
                     >
                       {product.categoryname}
@@ -157,37 +171,48 @@ function ProductList() {
                       contentEditable
                       suppressContentEditableWarning
                       onBlur={(e) =>
-                        handleupdate(product._id, e.target.innerText, "subcategory")
+                        handleupdate(
+                          product._id,
+                          e.target.innerText,
+                          "subcategory"
+                        )
                       }
                     >
                       {product.subcategory}
                     </td>
                     <td className="px-6 py-2">
-  <div className="flex items-center gap-1 flex-col">
-    <span
-      className="oldPrice line-through text-gray-500 text-[14px] font-[500]"
-      contentEditable
-      suppressContentEditableWarning
-      onBlur={(e) =>
-        handleupdate(product._id, e.target.innerText.replace("₹", ""), "oldprice")
-      }
-    >
-      ₹{product.oldprice}
-    </span>
-    <span
-      className="newPrice text-black text-[15px] font-[600]"
-      contentEditable
-      suppressContentEditableWarning
-      onBlur={(e) =>
-        handleupdate(product._id, e.target.innerText.replace("₹", ""), "price")
-      }
-    >
-      ₹{product.price}
-    </span>
-  </div>
-</td>
+                      <div className="flex items-center !gap-2 flex-row">
+                        <span
+                          className="newPrice text-black text-[15px] font-[600]"
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) =>
+                            handleupdate(
+                              product._id,
+                              e.target.innerText.replace("₹", ""),
+                              "price"
+                            )
+                          }
+                        >
+                          ₹{product.price}
+                        </span>
+                        <span
+                          className="oldPrice line-through text-gray-500 text-[15px] font-[500]"
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) =>
+                            handleupdate(
+                              product._id,
+                              e.target.innerText.replace("₹", ""),
+                              "oldprice"
+                            )
+                          }
+                        >
+                          ₹{product.oldprice}
+                        </span>
+                      </div>
+                    </td>
 
-                   
                     <td className="px-6 py-2">
                       <div className="flex items-center justify-center gap-2">
                         <Tooltip title="Update">

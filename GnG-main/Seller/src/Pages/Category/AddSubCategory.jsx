@@ -8,8 +8,9 @@ function AddSubCategory() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  // Fetch categories on mount
   useEffect(() => {
-    axios.get("http://localhost:7000/api/getcategories")
+    axios.get("http://localhost:7000/api/getcategories") // Make sure this endpoint exists
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("Error fetching categories", err));
   }, []);
@@ -47,7 +48,7 @@ function AddSubCategory() {
               type="text"
               value={subCategoryName}
               onChange={(e) => setSubCategoryName(e.target.value)}
-              className="w-full !p-3 text-sm h-[50px] border border-[rgba(0,0,0,0.4)] bg-white focus:outline-none"
+              className="w-full p-3 text-sm h-[40px] border border-[rgba(0,0,0,0.4)] bg-white focus:outline-none"
             />
           </div>
 
@@ -56,11 +57,11 @@ function AddSubCategory() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full !p-3  text-sm h-[50px] border border-[rgba(0,0,0,0.4)] bg-white focus:outline-none"
+              className="w-full p-3 text-sm h-[40px] border border-[rgba(0,0,0,0.4)] bg-white focus:outline-none"
             >
               <option value="">-- Select Category --</option>
               {categories.map((cat) => (
-                <option key={cat._id} value={cat._id} className="!p-8 text-[14px]">
+                <option key={cat._id} value={cat._id}>
                   {cat.categoryname}
                 </option>
               ))}

@@ -92,11 +92,11 @@ function SubCategoryList() {
           <tbody>
             {subcategories.map((subcategory) => (
               <tr key={subcategory._id} className="border border-gray-300">
-                <td className="px-6 py-2 !text-center border border-gray-200">
+                <td className="px-6 py-2 border border-gray-200">
                   <img
                     src={`http://localhost:7000/${subcategory.category?.image}`}
                     alt="Category"
-                    className="w-[60px] h-[60px] !m-auto object-cover rounded-md border"
+                    className="w-[60px] h-[60px] object-cover rounded-md border"
                   />
                 </td>
                 <td className="px-6 py-2 border border-gray-200 text-gray-700">

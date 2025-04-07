@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { Button, Rating, FormControl, InputLabel } from "@mui/material";
-import UploadImageBox from "../../Components/UploadBox/UploadImageBox";
-import { MdClose } from "react-icons/md";
-import { MdOutlineCloudUpload } from "react-icons/md";
-import { useEffect } from "react";
-import axios from "axios";
+// ⬇️ Full working code below (Only changes are marked clearly)
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { Button, Rating, FormControl, InputLabel } from '@mui/material';
+import UploadImageBox from '../../Components/UploadBox/UploadImageBox';
+import { MdClose, MdOutlineCloudUpload } from 'react-icons/md';
 
 function AddProduct() {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [images, setImages] = useState([]);
+
   const [Product, setProduct] = useState({
     title: "",
     description: "",
@@ -23,7 +25,7 @@ function AddProduct() {
     brand: "",
     size: "",
     additional_details: "",
-    images: [],
+    images: []
   });
 
   useEffect(() => {
@@ -33,281 +35,253 @@ function AddProduct() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:7000/api/getcategories"
-      );
+      const response = await axios.get('http://localhost:7000/api/getcategories');
       setCategories(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error('Error fetching categories:', error);
     }
   };
 
   const fetchSubcategories = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:7000/api/getsubcategories"
-      );
+      const response = await axios.get('http://localhost:7000/api/getsubcategories');
       setSubcategories(response.data);
     } catch (error) {
-      console.error("Error fetching subcategories:", error);
+      console.error('Error fetching subcategories:', error);
     }
   };
 
   const handleChange = (e) => {
     setProduct({ ...Product, [e.target.name]: e.target.value });
   };
+
   const handleSelectChange = (name) => (event) => {
     setProduct({ ...Product, [name]: event.target.value });
   };
 
-  const handleImageUpload = (images) => {
-    setProduct((prevProduct) => ({ ...prevProduct, images }));
+  const handleImageUpload = (files) => {
+    const fileList = Array.from(files);
+    setImages((prevImages) => [...prevImages, ...fileList]);
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      images: [...prevProduct.images, ...fileList],
+    }));
   };
-  const addproduct = async (e) => {
-    e.preventDefault();
+  
+
+  const handleImageRemove = (indexToRemove) => {
+    const updated = images.filter((_, i) => i !== indexToRemove);
+    setImages(updated);
+    setProduct((prev) => ({ ...prev, images: updated }));
+  };
+
+  const addproduct = async () => {
     try {
-      const response = await fetch("http://localhost:7000/api/addproduct", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Product),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Product added successfully");
-      } else {
-        alert("Failed to add: " + data.error);
+      const formData = new FormData();
+  
+      // Append each text field explicitly
+      formData.append("title", Product.title);
+      formData.append("description", Product.description);
+      formData.append("price", Product.price);
+      formData.append("oldprice", Product.oldprice);
+      formData.append("discount", Product.discount);
+      formData.append("ingredients", Product.ingredients);
+      formData.append("brand", Product.brand);
+      formData.append("additional_details", Product.additional_details);
+      formData.append("size", Product.size);
+      formData.append("categoryname", Product.categoryname);
+      formData.append("subcategory", Product.subcategory);
+      console.log("images",images)
+      if(images.length===0){
+        console.log("no image")
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
-    }
-  };
-  const [images, setImages] = useState([]);
-  const [previewURLs, setPreviewURLs] = useState([]);
-
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImages([...images, ...files]);
-    const newPreviews = files.map((file) => URL.createObjectURL(file));
-    setPreviewURLs([...previewURLs, ...newPreviews]);
-  };
-
-  const handleUpload = async () => {
-    if (images.length === 0) {
-      alert("Please select at least one image.");
-      return;
-    }
-
-    const formData = new FormData();
-    images.forEach((img) => formData.append("images", img));
-
-    try {
-      const response = await axios.post("http://localhost:7000/uploads", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      // Append image files
+      images.forEach((img) => {
+        formData.append("images", img); // Field name must match backend
       });
-
-      alert("Images uploaded successfully!");
-      const uploadedURLs = response.data.document.images;
-
-      // Call the onUpload callback with the uploaded image URLs
-      if (onUpload) {
-        onUpload(uploadedURLs);
-      }
-
-      setImages([]);
-      setPreviewURLs([]);
+  
+      const response = await axios.post(
+        'http://localhost:7000/api/seller/addproducts',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+  
+      console.log('Product added:', response.data);
+      alert('Product added successfully!');
     } catch (error) {
-      alert("Upload failed");
+      console.error('Error adding product:', error.response || error);
+      alert('Failed to add product. Check the console for more details.');
     }
   };
+  
 
   return (
     <section className="p-5 bg-gray-50">
-      <form action="" className=" py-2 px-10">
+      <form className="py-2 px-10">
         <div className="grid grid-cols-1 mb-3">
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Title</h3>
-            <input
-              type="text"
-              name="title"
-              value={Product.title}
-              onChange={handleChange}
-              className="w-full p-3 text-sm h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] bg-white "
-            />
-          </div>
+          <h3 className="text-[14px] font-[500] mb-1">Product Title</h3>
+          <input
+            type="text"
+            name="title"
+            value={Product.title}
+            onChange={handleChange}
+            className="w-full p-3 text-sm h-[40px] border bg-white"
+          />
         </div>
+
         <div className="grid grid-cols-1 mb-3">
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Description</h3>
-            <input
-              type="text"
-              name="description"
-              value={Product.description}
-              onChange={handleChange}
-              className="w-full p-3 text-sm h-[100px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] bg-white "
-            />
-          </div>
+          <h3 className="text-[14px] font-[500] mb-1">Product Description</h3>
+          <textarea
+            name="description"
+            value={Product.description}
+            onChange={handleChange}
+            className="w-full p-3 text-sm h-[100px] border bg-white"
+          />
         </div>
+
         <div className="grid grid-cols-3 gap-5 mb-3">
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Category </h3>
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
-              <Select
-                value={Product.categoryname}
-                onChange={handleSelectChange("categoryname")}
-              >
-                {categories.map((category) => (
-                  <MenuItem key={category._id} value={category.categoryname}>
-                    {category.categoryname}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">
-              Product SubCategory{" "}
-            </h3>
-            <FormControl fullWidth>
-              <InputLabel>Subcategory</InputLabel>
-              <Select
-                value={Product.subcategory}
-                onChange={handleSelectChange("subcategory")}
-              >
-                {subcategories.map((subcategory) => (
-                  <MenuItem
-                    key={subcategory._id}
-                    value={subcategory.subcategory}
-                  >
-                    {subcategory.subcategory}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Price </h3>
+          <FormControl fullWidth>
+            <InputLabel>Category</InputLabel>
+            <Select
+              value={Product.categoryname}
+              onChange={handleSelectChange('categoryname')}
+            >
+              {categories.map((cat) => (
+                <MenuItem key={cat._id} value={cat._id}>
+                  {cat.categoryname}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Subcategory</InputLabel>
+            <Select
+              value={Product.subcategory}
+              onChange={handleSelectChange('subcategory')}
+            >
+              {subcategories.map((sub) => (
+                <MenuItem key={sub._id} value={sub._id}>
+                  {sub.subcategory}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <div>
+            <h3 className="text-[14px] font-[500] mb-1">Price</h3>
             <input
-              type="Number"
+              type="number"
               name="price"
               value={Product.price}
               onChange={handleChange}
-              className="w-full p-3 bg-white text-sm h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
+              className="w-full p-3 text-sm h-[40px] border bg-white"
             />
           </div>
         </div>
+
         <div className="grid grid-cols-3 gap-5 mb-3">
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product OldPrice</h3>
-            <input
-              type="Number"
-              name="oldprice"
-              value={Product.oldprice}
-              onChange={handleChange}
-              className="w-full p-3 text-sm bg-white h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Discount</h3>
-            <input
-              type="text"
-              name="discount"
-              value={Product.discount}
-              onChange={handleChange}
-              className="w-full p-3 text-sm bg-white h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Ingredients</h3>
-            <input
-              type="text"
-              name="ingredients"
-              value={Product.ingredients}
-              onChange={handleChange}
-              className="w-full p-3 text-sm bg-white h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
+          <input
+            type="number"
+            name="oldprice"
+            value={Product.oldprice}
+            onChange={handleChange}
+            placeholder="Old Price"
+            className="col p-3 text-sm h-[40px] border bg-white"
+          />
+          <input
+            type="text"
+            name="discount"
+            value={Product.discount}
+            onChange={handleChange}
+            placeholder="Discount"
+            className="col p-3 text-sm h-[40px] border bg-white"
+          />
+          <input
+            type="text"
+            name="ingredients"
+            value={Product.ingredients}
+            onChange={handleChange}
+            placeholder="Ingredients"
+            className="col p-3 text-sm h-[40px] border bg-white"
+          />
         </div>
+
         <div className="grid grid-cols-3 gap-5 mb-3">
+          <input
+            type="text"
+            name="brand"
+            value={Product.brand}
+            onChange={handleChange}
+            placeholder="Brand"
+            className="col p-3 text-sm h-[40px] border bg-white"
+          />
+          <input
+            type="text"
+            name="size"
+            value={Product.size}
+            onChange={handleChange}
+            placeholder="Size"
+            className="col p-3 text-sm h-[40px] border bg-white"
+          />
           <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Brand </h3>
-            <input
-              type="text"
-              name="brand"
-              value={Product.brand}
-              onChange={handleChange}
-              className="w-full p-3  bg-white text-sm h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Product Size</h3>
-            <input
-              type="text"
-              name="size"
-              value={Product.size}
-              onChange={handleChange}
-              className="w-full p-3 bg-white  text-sm h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
-          <div className="col">
-            <h3 className="text-[14px] pl-1 font-[500] mb-1">Product Rating</h3>
+            <h3 className="text-[14px] font-[500] mb-1">Product Rating</h3>
             <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
           </div>
         </div>
+
         <div className="grid grid-cols-1 mb-3">
-          <div className="col">
-            <h3 className="text-[14px] font-[500] mb-1">Aditional Details</h3>
-            <input
-              type="text"
-              name="additional_details"
-              value={Product.additional_details}
-              onChange={handleChange}
-              className="w-full p-3 bg-white text-sm h-[40px] border border[rgba(0,0,0,0.1)] focus:outline-none focus:border border-[rgba(0,0,0,0.4)] "
-            />
-          </div>
+          <input
+            type="text"
+            name="additional_details"
+            value={Product.additional_details}
+            onChange={handleChange}
+            placeholder="Additional Details"
+            className="p-3 bg-white border"
+          />
         </div>
+        <h1 className='tect-black font-bold text-2xl m-2'>Upload images</h1>
+        {/* Upload Images */}
+        <div className="flex flex-wrap gap-4 mb-8 text-gray-500">
+         
+  {images.map((img, index) => (
+    <div key={index} className="relative">
+      <img
+        className="w-24 h-24 object-cover rounded border cursor-pointer"
+        src={URL.createObjectURL(img)}
+        alt={`preview-${index}`}
+      />
+      <button
+        onClick={() => handleImageRemove(index)}
+        className="absolute top-0 right-0 bg-red-500 text-white text-xs p-1 rounded-full"
+      >
+        ✕
+      </button>
+    </div>
+  ))}
 
-        {/* uload img */}
-        <div className="uploadimg  w-full p-2 px-1">
-          <h3 className="font-[600] text-[18px]">Media & Images</h3>
+  <label htmlFor="multi-img" className="cursor-pointer">
+    <div className="w-24 h-24 flex items-center justify-center border-2 border-dashed bg-gray-100 text-sm text-center">
+      + Upload
+    </div>
+  </label>
 
-          <div className="grid grid-cols-6 gap-4 py-4 ">
-          {previewURLs.map((url, index) => (
-            <div className="uploadBox relative flex flex-col !items-center !justify-center !rounded-sm  border-bashed border-1 border-[rgba(0,0,0,0.4)] bg-gray-100  hover:bg-gray-200 cursor-pointer  w-[100%] h-[170px]">
-              <span className="absolute -top-[10px] -right-[5px] w-[20px] h-[20px] rounded-full flex items-center justify-center bg-red-700 ">
-                <MdClose className="text-white text-[16px]" />
-              </span> 
-               
-                    <img
-                      key={index}
-                      src={url}
-                      alt={`preview-${index}`}
-                      className="!w-full !h-full object-cover rounded"
-                    />
-            </div>
-            ))}
-              <div className="uploadBox relative flex flex-col !items-center !justify-center !rounded-sm  border-bashed border-1 border-[rgba(0,0,0,0.4)] bg-gray-100  hover:bg-gray-200 cursor-pointer  w-[100%] h-[170px]">
-                <MdOutlineCloudUpload className="text-[40px] opacity-35" />
-                <h4 className="text-[14px]">Upload Images</h4>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  className="absolute top-0 left-0 w-full h-full opacity-0"
-                  onChange={handleFileChange}
-                />
-              </div>
-            </div>
-          </div>
+  <input
+    id="multi-img"
+    type="file"
+    accept="image/*"
+    multiple
+    hidden
+    onChange={(e) =>handleImageUpload(e.target.files)}
+  />
+</div>
 
-        <br />
-        {/* submit btn */}
+
+        {/* Submit */}
         <Button
           type="button"
           className="flex items-center justify-center gap-2 btn-blue btn-lg w-[30%]"
