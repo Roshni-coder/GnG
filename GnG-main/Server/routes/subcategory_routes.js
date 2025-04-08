@@ -29,9 +29,10 @@ router.post('/addsubcategory', async (req, res) => {
     }
 });
 
+// Get all subcategories with category name and image
 router.get('/getsubcategories', async (req, res) => {
     try {
-        const subcategories = await Subcategory.find().populate('category', 'categoryname image'); 
+        const subcategories = await Subcategory.find().populate('category', 'categoryname image'); // Fetch category name & image
         res.status(200).json(subcategories);
     } catch (error) {
         console.error("Error:", error);
@@ -39,6 +40,7 @@ router.get('/getsubcategories', async (req, res) => {
     }
 });
 
+// Update a subcategory
 router.put('/updatesubcategory/:id', async (req, res) => {
     try {
         const { subcategory } = req.body;

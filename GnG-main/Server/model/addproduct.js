@@ -1,29 +1,36 @@
 import mongoose from "mongoose";
 const addproductSchema = new mongoose.Schema({
+
     title:{
         type:String,
         required:true,
     },
+
     description:{
         type:String,
         required:true,
     },
+
     categoryname:{        
         type:String,
         required:true,
     },
+
     subcategory:{
         type:String,
         required:true,
     },
+
     price:{
         type:Number,
         required:true,
     },
+
     oldprice:{
         type:Number,
         required:true,
     },
+    
     discount:{
         type:Number,
         required:true,
@@ -44,10 +51,18 @@ const addproductSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    images:{
-        type:[String],
-        required:true,
-    },
+    images: [
+        {
+          url: {
+            type: String,
+            required: true
+          },
+          altText: {
+            type: String,
+            default: ''
+          }
+        }
+      ]
 })
 
 const addproductmodel = mongoose.model('Product',addproductSchema)

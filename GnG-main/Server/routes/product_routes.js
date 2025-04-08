@@ -24,7 +24,7 @@ router.post('/addproduct',async(req,res)=>{
 
 router.get('/getproducts', async (req, res) => {
    try {
-       const products = await addproductmodel.find({});
+       const products = await addproductmodel.find({})
            
        res.status(200).json({ success: true, data: products });
    } catch (error) {

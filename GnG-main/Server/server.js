@@ -9,17 +9,19 @@ import productrouter from "./routes/product_routes.js"
 import uploadrouter from "./routes/upload_routes.js"
 import categoryrouter from "./routes/category_routes.js"
 import subcategoryrouter from "./routes/subcategory_routes.js"
+import connectcloudinary from "./config/cloudinary.js";
+import sellerrouter from "./routes/sellerroutes.js";
 
 
 const app = express();
-const port = process.env.port || 7000
+const port = process.env.port || 3000
 connectDB();
-
+connectcloudinary()
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ['http://localhost:5173','http://localhost:5174','http://localhost:5175'], // Explicitly allow your frontend URL
+  origin: ['http://localhost:5173','http://localhost:5174'], // Explicitly allow your frontend URL
   credentials: true // Allow cookies and auth headers
 }));
   
@@ -27,6 +29,7 @@ app.use(cors({
 // API End-points--
 app.use('/api/auth',router)
 app.use('/api/user',userouter)
+app.use('/api/product',productrouter)
 
 app.use("/api", uploadrouter);
 
@@ -35,7 +38,7 @@ app.use("/uploads", express.static("uploads"));
 app.use('/api',productrouter)
 app.use('/api',categoryrouter)
 app.use('/api',subcategoryrouter)
-
+app.use("/api/seller",sellerrouter)
 //app.use('/',(req,res)=>res.json({ message: "API working..." }));
 
 app.listen(port, ()=> console.log(`Server started on ${port}.........`));

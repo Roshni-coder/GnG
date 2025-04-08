@@ -7,7 +7,8 @@ import TotalPrice from "../Cart Page/Totalprice.jsx";
 import TextField from "@mui/material/TextField";
 import CartItems from "../Cart Page/CartItems.jsx";
 import { Button } from "@mui/material";
-
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 function Checkout() {
   const [isOpenSummary, setOpenSummary] = useState(0);
 
@@ -24,6 +25,23 @@ function Checkout() {
             <h1 className="text-[16px] pl-1">Billing Details</h1>
           </AccordionSummary>
           <AccordionDetails>
+        
+              <div className='main flex justify-between border p-2 border-gray-200 '>
+             <div className='flex flex-col '>
+              <p>Name : Bhoi Roshni Jitendrabhai </p>
+              <p>Phone : 7724345312</p>
+              <p>Email : roshnibhoi232@gmail.com</p>
+              <p><span>Address : </span> Baji Patel ni vhorvad ,<span>Visnagar</span>,<span>Gujrat</span> <span>384315 </span> </p>
+               
+             </div>
+             <div>
+               <div className="btn flex gap-2 mr-2">
+                <button className="!p-0  !m-0"><MdEdit className="text-blue-600 text-[20px]" /></button>
+                <button className="!p-0  !m-0"><MdDelete className="text-red-600 text-[20px]" /></button>
+                </div>
+            </div>
+              </div>
+              
             <form className="w-full">
               <h6 className="pt-3 mb-2 px-1 text-[13px] font-[500]">Name and Phone *</h6>
               <div className="lg:flex items-center gap-3">
@@ -50,6 +68,7 @@ function Checkout() {
                 </Button>
               </div>
             </form>
+            
           </AccordionDetails>
         </Accordion>
         {/* Order Summary */}
