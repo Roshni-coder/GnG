@@ -6,7 +6,7 @@ import {Autoplay} from 'swiper/modules';
 
 import { Link } from "react-router-dom";
 import NavData from '../../Consone/NavData.js';
-import ChatBot from "../../ChatBot/ChatBot.jsx";
+import ChatBot from "../../ChatBot/Chatbot.jsx";
 
 const NavCatSlider = () => (
   <div className="NavcatSlider bg-gray-100 md:py-8">

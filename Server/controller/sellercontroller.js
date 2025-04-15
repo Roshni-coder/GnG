@@ -1,4 +1,3 @@
-
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 // import ordermodel from "../model/ordermodel.js";
@@ -6,6 +5,7 @@ import validator from "validator"
 import sellermodel from "../model/sellermodel.js";
 import addproductmodel from "../model/addproduct.js";
 import {v2 as cloudinary} from "cloudinary"
+import orderModel from "../model/order.js";
 
 export const registerseller=async(req,res)=>{
 try{
@@ -97,18 +97,21 @@ export const loginseller = async (req, res) => {
 };
 
 
-const sellerorders = async (req, res) => {
+export const sellerorders = async (req, res) => {
   try {
     const { sellerid } = req.body;
-    const orders = await sellermodel.find({ sellerid });
-    res.json({ success: true, orders });
+    const orders = await orderModel.find({ sellerid });
+    if(!orders){
+      return res.status(404).json({message:"no orders"})
+    }
+    return res.status(201).json({ success: true, orders });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
 };
 
-const ordercomplete = async (req, res) => {
+export const ordercomplete = async (req, res) => {
   try {
     const { sellerid, orderid } = req.body;
     const orderdata = await appointmentmodel.findById(orderid);
@@ -181,4 +184,49 @@ export const addproducts = async (req, res) => {
       details: err.message,
     });
   }
+};
+
+
+
+export const getSellerProfile = async (req, res) => {
+  try {
+    const {sellerid } = req.body;
+    
+    let seller = await sellermodel.findById(sellerid);
+
+    if (seller) {
+      
+    
+      return res.status(200).json({success:true , seller });
+    } 
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+export const updateSellerProfile = async (req, res) => {
+  try {
+    const { sellerid, name, email, phone } = req.body;
+
+    // Find the seller by ID
+    console.log(sellerid);
+    let seller = await sellermodel.findById(sellerid);
+
+    if (!seller) {
+      return res.status(404).json({ success: false, message: "Seller not found" });
+    }
+
+    // Update the seller's fields
+    seller.name = name || seller.name;
+    seller.email = email || seller.email;
+    seller.phone = phone || seller.phone;
+
+    // Save the updated seller
+    await seller.save();
+
+    return res.status(200).json({ sucess: true, message: "Profile updated successfully", seller });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

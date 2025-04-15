@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import LeftFilter from './LeftFilter';
 
 function ProductList() {
   const location = useLocation();
@@ -35,15 +36,18 @@ function ProductList() {
 
   return (
     <div>
-      <h1 className="text-center text-2xl md:text-3xl font-bold text-gray-800 my-8">
-        🎂 {category ? `${category} Products` : 'Birthday Wish List'}
+      <h1 className="text-center !text-[20px] font-[600] text-gray-800 my-4 ">
+         {category ? `${category} Products` : 'Birthday Wish List'}
       </h1>
-
-      <div className="container w-[100%] !px-4 border bg-white border-none m-auto !my-8 py-8">
-        <div className="items flex gap-4 flex-wrap justify-center">
+      <div className="container-fluid w-[100%]  flex justify-between gap-2 ">
+        <div className="leftpart bg-white py-2 !w-[20%]">
+          <LeftFilter/>
+        </div>
+        <div className="rightpart bg-white  !w-[80%]">
+        <div className="items flex !py-6 !gap-5 flex-wrap justify-center">
           {products.length > 0 ? (
             products.map((product) => (
-              <div key={product._id} className="productItem bg-white mb-4 rounded overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 max-w-xs">
+              <div key={product._id} className="productItem bg-white rounded overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 max-w-xs">
                 <Link to={`/productDetails/${product._id}`}>
                 <div className="imgWrapper w-[250] h-[250px] sm:h-[280px] overflow-hidden pb-2">
                     <img
@@ -67,6 +71,7 @@ function ProductList() {
           ) : (
             <p className="text-gray-500 text-sm">No products found for this category.</p>
           )}
+        </div>
         </div>
       </div>
     </div>

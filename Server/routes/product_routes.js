@@ -49,7 +49,39 @@ router.get('/getproduct/:id', async (req, res) => {
      res.status(500).json({ success: false, message: "Server error", error: error.message });
    }
  });
- 
+ router.get('/filter',async(req,res)=>{
+   try{
+       const {categoryname,minPrice,maxPrice,sort,discount} = req.query
+
+       const filter ={};
+
+       if(categoryname){
+         filter.categoryname = categoryname
+       }
+
+       if(minPrice || maxPrice){
+         filter.price ={}
+
+          if(minPrice) filter.price.$gte= parseFloat(minPrice)
+          if(maxPrice) filter.price.$lte = parseFloat(maxPrice)  
+       }
+
+       if(discount){
+         filter.discount = {$gte:parseFloat(discount)}
+       }
+
+       let sortOption ={}
+       if(sort ==='asc') sortOption.price = 1;
+       if(sort === 'desc') sortOption.price = -1
+
+       const product = await addproductmodel.find(filter).sort(sortOption)
+
+       res.status(200).json({success:true,data:product})
+   }
+   catch(error){
+       res.status(500).json({success:false,message:"server error",error:error.message})  
+   }
+})
 
 router.delete('/deleteproduct/:id',async(req,res)=>{
    try {

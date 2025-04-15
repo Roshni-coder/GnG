@@ -82,9 +82,9 @@ function Checkout() {
       </div>
 
       {/* Right Part - Total Price */}
-      <div className="rightPart w-full lg:!m-0 mt-4 lg:w-[30%]">
+      {/* <div className="rightPart w-full lg:!m-0 mt-4 lg:w-[30%]">
         <TotalPrice />
-      </div>
+      </div> */}
     </div>
   );
 }

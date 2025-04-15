@@ -143,12 +143,14 @@ function RightComponent({ product }) {
         >
           Add to Cart
         </Button>
+        <Link to="/addaddress">
         <Button className=" h-[50px] w-[300px] !bg-[#fb541b] "
          variant="contained"
           startIcon={<Flash />}
         >
           Buy Now
         </Button>
+        </Link>
       </div>
      
 

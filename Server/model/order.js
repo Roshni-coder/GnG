@@ -1,30 +1,54 @@
+import mongoose from "mongoose";
 
-const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  sellerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "seller", // Assuming you have a Seller model
-    required: true,
-  },
-  buyerId: {
+
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
-    required: true,
+    required: true
   },
-  products: [
+
+  sellerId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"seller",
+    required:true
+  },
+
+  items: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-      quantity: Number,
-      price: Number,
-    },
+      productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+      name: String,
+   
+     quantity: { type: Number, required: true },
+      price: { type: Number, required: true }
+    }
   ],
-  totalAmount: Number,
-  status: String, // e.g. "Pending", "Shipped", etc.
-  createdAt: {
-    type: Date,
-    default: Date.now,
+
+  totalAmount: {
+    type: Number,
+    required: true
   },
+
+  shippingAddress: {
+    name: String,
+    pin: Number,
+    city: String,
+    state: String,
+    phone: String,
+    alternatephone: String,
+    address: String
+  },
+  status: {
+    type: String,
+    default: "Pending"
+  },
+  placedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+const orderModel = mongoose.models.order || mongoose.model("order", orderSchema);
+
+export default orderModel;

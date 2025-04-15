@@ -32,7 +32,6 @@ app.use('/api/auth',router)
 app.use('/api/user',userouter)
 app.use('/api/product',productrouter)
 
-
 app.use("/api", uploadrouter);
 
 // Serve uploaded images

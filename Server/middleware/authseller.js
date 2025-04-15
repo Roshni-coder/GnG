@@ -9,7 +9,7 @@ const authseller=async(req,res,next)=>{
         return res.json({success:false,message:"auhthorize login again"})
       }
        const tokendecode=jwt.verify(stoken,process.env.JWT_SECRET)
-       req.body.vid=tokendecode.id
+       req.body.sellerid=tokendecode.id
        
        next()
 
@@ -25,5 +25,4 @@ const authseller=async(req,res,next)=>{
 
 
    }
-   export default authseller;
-
+   export default authseller;

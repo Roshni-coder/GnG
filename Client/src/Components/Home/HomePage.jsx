@@ -6,7 +6,7 @@ import Adevert from '../Home/Advertise/Adevert.jsx'
 import ProductSlider from '../Home/ProductSlider/Productslider.jsx'
 import MiddelAds from '../Home/Advertise/MiddelAds.jsx'
 import RelationSlider from './RelationshipSlider/RelationSlider.jsx'
-import ChatBot from '../ChatBot/ChatBot.jsx'
+import Chatbot from '../ChatBot/Chatbot.jsx'
 
 
 
@@ -20,10 +20,8 @@ function Home() {
      <Adevert/>
      <MiddelAds/>
      <ProductSlider  title='Birthday Gifts That Wow' />
-     
-  
-     
-     
+     <Chatbot/>
+     <RelationSlider/>
     </>
   )
 }

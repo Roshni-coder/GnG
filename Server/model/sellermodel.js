@@ -8,7 +8,7 @@ const sellerschema = new mongoose.Schema({
 
   about: { type: String},
   available: { type: Boolean },
-
+  phone:{type:Number},
   address: { type: Object },
   date: { type: Date, default: Date.now },  // Better type for date
  

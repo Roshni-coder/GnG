@@ -10,7 +10,7 @@ import { FiHeart } from "react-icons/fi";
 import Tooltip from "@mui/material/Tooltip";
 import { Button} from "@mui/material";
 import { FaRegUserCircle } from "react-icons/fa";
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../../../context/Appcontext.jsx'
 import axios from 'axios'
@@ -20,8 +20,8 @@ import { FaRegHeart } from "react-icons/fa6";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdOutlineMail } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-import CartItems from "../../../Cart Page/CartItems.jsx"
-
+import { useState } from "react";
+import { SearchResultlist } from "./SearchResultlist.jsx";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -35,7 +35,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function Navigation() {
   const navigate = useNavigate()
   const { userData, backendurl, setUserdata, setIsLoggedin } = useContext(AppContext)
-  
+  const [results,setResults] = useState([])
 
   const sendVerifyingotp = async ()=>{
       try {
@@ -55,35 +55,18 @@ function Navigation() {
       }
   }
 
-  const logout = async () => {
-    try {
-      axios.defaults.withCredentials = true;
-      const { data } = await axios.post(backendurl + '/api/auth/logout');
-  
-      if (data.success) {
-        setIsLoggedin(false);
-        setUserdata(false);
-        localStorage.removeItem("token"); // 
-        navigate('/');
+  const logout = async ()=>{
+      try {
+          axios.defaults.withCredentials = true
+          const {data} = await axios.post(backendurl + '/api/auth/logout')
+          data.success && setIsLoggedin(false)
+          data.success && setUserdata(false)
+          navigate('/')
+      } catch (error) {
+          toast.error(error.message)
       }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-  
-  function useCartCount() {
-    const [count, setCount] = React.useState(0);
-  
-    React.useEffect(() => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCount(cart.length);
-    }, []);
-  
-    return count;
   }
   
-  const cartCount = useCartCount();
-
   return (
     <>
       <nav className="navigation lg:py-2">
@@ -100,7 +83,7 @@ function Navigation() {
           </div>
 
           <div className="col2 lg:col-span-7 p-1">
-            <Search />
+            <Search setResults={setResults}/>
           </div>
 
           <div className="col3 lg:col-span-3 pt-1 ml-5">
@@ -129,11 +112,11 @@ function Navigation() {
                         <BsBox className="text-[#7d0492] !text-[14px] " /> Orders
                         </li>
                         </Link>
-                        {/* {!userData.isAccountVerify && (
+                        {!userData.isAccountVerify && (
                           <li onClick={sendVerifyingotp} className="py-2 px-2 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
                            < MdOutlineMail className="text-[#7d0492] !text-[15px] "  /> Verify email
                           </li>
-                        )} */}
+                        )}
                         <li onClick={logout} className="py-2 px-2 flex items-center gap-2  hover:bg-gray-100 cursor-pointer ">
                          <RiLogoutCircleLine className="text-[#7d0492] !text-[15px] " /> Logout
                         </li>
@@ -169,7 +152,7 @@ function Navigation() {
                 <Tooltip title="WhishList">
                   <Link to='/wishlist'>
                   <IconButton aria-label="like">
-                    <StyledBadge badgeContent={3} color="secondary">
+                    <StyledBadge badgeContent={4} color="secondary">
                       <FiHeart className="md:text-[25px] text-[20px]" />
                     </StyledBadge>
                   </IconButton>
@@ -181,8 +164,7 @@ function Navigation() {
                 <Tooltip title="Cart">
                   <Link to='/cartlist'>
                   <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={cartCount} 
-                    color="secondary">
+                    <StyledBadge badgeContent={4} color="secondary">
                       <MdOutlineShoppingCart className="md:text-[25px] text-[20px]" />
                     </StyledBadge>
                   </IconButton>

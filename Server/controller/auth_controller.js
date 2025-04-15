@@ -5,6 +5,7 @@ import transporter from '../config/nodemailer.js';
 import Cart from '../model/cart.js'
 import Wishlist from '../model/wishlist.js';
 import Product from '../model/addproduct.js'
+import Profile from '../model/userprofile.js';
 
 // for register function----
 export const register = async (req, res) => {
@@ -33,6 +34,15 @@ export const register = async (req, res) => {
         const user = new usermodel({ name, email, password: hashedpasswoed });
         await user.save();
 
+        const profile = new Profile({
+            user: user._id,
+            phone: '', // optionally set default
+            addresses: [],
+            name:name,
+            email:email
+          });
+          await profile.save();
+      
         //create token------
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
@@ -60,8 +70,8 @@ export const register = async (req, res) => {
         res.json({
             success: false,
             message: error.message
-        })
-    }
+        })
+    }
 
 }
 
@@ -581,7 +591,7 @@ export const ToggleCartQuantity = async (req, res) => {
       console.error("Update Cart Error:", error);
       res.status(500).json({ message: "Server error" });
     }
-  };
+ };
   
 
   
