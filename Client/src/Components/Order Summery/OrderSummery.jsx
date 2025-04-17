@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
 import { AppContext } from "../context/Appcontext.jsx";
-import CartItems from "./CartItems";
-import Totalprice from "./Totalprice";
+import CartItems from "../Cart Page/CartItems.jsx";
+import Totalprice from "../Cart Page/Totalprice.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Cartpage() {
+function OrderSummery() {
   const navigate = useNavigate(); // ✅ init navigate
   const { cartItems, setCartItems, fetchCart } = useContext(AppContext);
   const token = localStorage.getItem("token");
@@ -13,7 +13,6 @@ function Cartpage() {
   useEffect(() => {
     fetchCart();
   }, []);
-
   const handleRemove = async (cartItemId) => {
     try {
       await axios.delete(`http://localhost:7000/api/auth/delete/${cartItemId}`, {
@@ -42,10 +41,9 @@ function Cartpage() {
       alert(err.response?.data?.message || "Error updating quantity");
     }
   };
-
-  // ✅ Handle Place Order click
   const handlePlaceOrder = () => {
-    navigate("/addaddress"); // Navigate to the AddAddress page
+      alert("Your order is successfully placed!");
+      navigate("/"); // Navigate back to home or another page after order placement
   };
 
   return (
@@ -53,9 +51,9 @@ function Cartpage() {
       <div className="container w-[70%] lg:w-[80%] w-full lg:flex gap-4">
         <div className="leftPart lg:w-[70%] w-full">
           <div className="py-2 bg-white sm:px-3 px-2 border-b border-gray-200">
-            <h2 className="text-black">Your Cart</h2>
+            <h2 className="text-black">Your Orders</h2>
             <p>
-              There are <span className="font-bold">{cartItems.length}</span> products in your cart.
+              There are <span className="font-bold">{cartItems.length}</span> products in your Orders.
             </p>
           </div>
           <div className="shadow-md rounded-md bg-white max-h-[450px] overflow-y-scroll">
@@ -71,16 +69,16 @@ function Cartpage() {
                 />
               ))
             ) : (
-              <p className="p-4 text-gray-500">Your cart is empty.</p>
+              <p className="p-4 text-gray-500">Your orders list is empty.</p>
             )}
           </div>
         </div>
         <div className="rightPart lg:w-[30%] w-[30%] mt-4 lg:mt-0">
-          <Totalprice handlePlaceOrder={handlePlaceOrder} /> {/* Pass the function here */}
+        <Totalprice handlePlaceOrder={handlePlaceOrder} />
         </div>
       </div>
     </section>
   );
 }
 
-export default Cartpage;
+export default OrderSummery;

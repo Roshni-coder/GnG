@@ -177,6 +177,7 @@ function AddProduct() {
             <input
               type="number"
               name="price"
+              placeholder='Gng Price'
               value={Product.price}
               onChange={handleChange}
               className="w-full p-3 text-sm h-[40px] border bg-white"
@@ -187,7 +188,7 @@ function AddProduct() {
         <div className="grid grid-cols-3 gap-5 mb-3">
           <input
             type="number"
-            name="oldprice"
+            name="Price"
             value={Product.oldprice}
             onChange={handleChange}
             placeholder="Old Price"
@@ -206,7 +207,7 @@ function AddProduct() {
             name="ingredients"
             value={Product.ingredients}
             onChange={handleChange}
-            placeholder="Ingredients"
+            placeholder="Materials"
             className="col p-3 text-sm h-[40px] border bg-white"
           />
         </div>

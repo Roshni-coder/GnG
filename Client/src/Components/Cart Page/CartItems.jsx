@@ -20,7 +20,7 @@ function CartItems({ product, cartItemId, onRemove, onUpdateQuantity, quantity }
   return (
     <div className="cartitems border-b border-gray-100 w-full sm:p-3 p-3 flex items-center sm:gap-4 gap-3">
       <div className="img lg:!w-[15%] w-[20%] rounded-md overflow-hidden">
-        <Link to={`/productdetails/${product?.id}`} className="group">
+        <Link to={`/products/${product._id}`} className="group">
           <img
             src={product?.image || "https://placehold.co/150"}
             alt={product?.title}
@@ -36,7 +36,7 @@ function CartItems({ product, cartItemId, onRemove, onUpdateQuantity, quantity }
         />
 
         <h3 className="md:text-[15px] text-[11px] text-black">
-          <Link to={`/productdetails/${product._id}`} className="link">
+          <Link to={`/products/${product._id}`} className="link">
             {product.title}
           </Link>
         </h3>
@@ -54,7 +54,7 @@ function CartItems({ product, cartItemId, onRemove, onUpdateQuantity, quantity }
           </span>
         </div>
 
-        <div className="flex items-center gap-4 my-1">
+        <div className="flex items-center gap-4  !mb-2">
           <span className="text-black sm:text-[15px] text-[13px] font-[600]">
             ₹{(product.price * quantity).toFixed(2)}
           </span>
@@ -67,17 +67,17 @@ function CartItems({ product, cartItemId, onRemove, onUpdateQuantity, quantity }
         </div>
 
 
-        <div className="flex items-center gap-3 pt-1">
+        <div className="flex items-center gap-3 !pt-1">
           <button
             onClick={handleDecrement}
-            className="bg-gray-600 px-2 rounded text-sm font-semibold"
+            className=" border border-gray-400 !p-0 !px-2 !text-black !text-[13px]"
           >
             -
           </button>
-          <span className="font-medium text-sm">{quantity}</span>
+          <span className="font-medium !text-center  !pr-1 !text-[14px]">{quantity}</span>
           <button
             onClick={handleIncrement}
-            className="bg-gray-600 px-2 rounded text-sm font-semibold"
+            className=" border border-gray-400 !text-black !px-2 !p-0 !text-[13px]"
           >
             +
           </button>

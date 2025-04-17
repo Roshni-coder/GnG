@@ -78,7 +78,7 @@ function ProductSlider() {
             {cat?.products?.length > 0 ? (
               cat.products.map((product) => (
                 <SwiperSlide key={product._id}>
-                  <Link to={`/productdetails/${product._id}`}>
+                  <Link to={`/products/${product._id}`}>
                     <div className="productItem bg-white mb-4 rounded overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                       {/* Image */}
                       <div className="imgWrapper w-full h-[300px] sm:h-[280px] overflow-hidden pb-2">

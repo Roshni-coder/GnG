@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { TbHeadphonesFilled } from "react-icons/tb";
+import { IoMdClose } from "react-icons/io";
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -54,6 +55,9 @@ const Chatbot = () => {
         case 'offers & discounts':
           botReply = '💸 Enjoy up to 60% off on birthday gift combos. Don’t miss out!';
           break;
+          case 'cancel order':
+            botReply = '❌ To cancel your order, contact support@giftgrove.com within 24 hours of placing the order.';
+            break;
         case 'birthday gift ideas':
           botReply = '🎂 Popular birthday gifts include personalized mugs, LED photo frames, surprise boxes, and cakes!';
           break;
@@ -65,9 +69,6 @@ const Chatbot = () => {
           break;
         case 'customer reviews':
           botReply = '📝 Our store has a 4.8★ rating from 1,200+ happy customers!';
-          break;
-        case 'cancel order':
-          botReply = '❌ To cancel your order, contact support@giftgrove.com within 24 hours of placing the order.';
           break;
         default:
           botReply = '🤖 Sorry, I didn’t catch that. Please choose an option or try rephrasing!';
@@ -90,18 +91,18 @@ const Chatbot = () => {
       )}
 
       {isOpen && (
-        <div className="w-80 sm:w-72 h-[480px] bg-white border rounded-xl shadow-lg flex flex-col overflow-hidden">
-          <div className="bg-[#7d0492] text-white p-3 flex justify-between items-center">
+        <div className="!w-75  sm:w-72 border border-gray-300 h-[500px] bg-white !mb-15 !shadow-md rounded shadow-lg flex flex-col overflow-hidden">
+          <div className="bg-[#7d0492] text-white p-4 flex justify-between items-center">
             <span className="text-[18px]">FAQ Bot</span>
-            <button onClick={toggleChat} className="!text-white hover:text-gray-200 text-xl">✖</button>
+            <button onClick={toggleChat} className="!text-white hover:text-gray-200 "><IoMdClose className='!text-[18px]' /></button>
           </div>
 
-          <div className="flex-1 p-2 overflow-y-auto space-y-2">
+          <div className="flex-1 !p-2 !px-2  overflow-y-scroll space-y-2">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`px-3 py-2 rounded-lg text-sm whitespace-pre-line ${
-                    msg.from === 'user' ? 'bg-purple-100' : 'bg-gray-100'
+                  className={`px-3 pt-1 pb-2 rounded-lg text-sm  whitespace-pre-line ${
+                    msg.from === 'user' ? 'bg-[#7d0492] !text-white' : 'bg-gray-200'
                   }`}
                 >
                   {msg.text}
@@ -111,11 +112,11 @@ const Chatbot = () => {
           </div>
 
           {/* Quick Options */}
-          <div className="flex flex-wrap gap-1 p-2">
+          <div className="flex flex-wrap gap-1 !p-1  !py-2 !px-3">
             {options.map((opt, i) => (
               <button
                 key={i}
-                className="text-xs px-3 py-1 bg-gray-800 text-white font-medium rounded-full hover:bg-gray-700 transition"
+                className="!text-[13px] px-3 py-1 !border !border-gray-400 !text-gray-400 rounded  transition"
                 onClick={() => handleSend(opt)}
               >
                 {opt}
@@ -129,16 +130,16 @@ const Chatbot = () => {
               e.preventDefault();
               handleSend(input);
             }}
-            className="flex items-center border-t p-2"
+            className="flex  items-center border shadow border-gray-300 !p-2"
           >
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 text-sm px-2 py-1 outline-none"
+              className="flex-1 !text-black text-sm px-2 py-1 outline-none"
             />
-            <button type="submit" className="text-[#7d0492] hover:brightness-110 p-1">
-              <FaPaperPlane />
+            <button type="submit" className="!text-[#7d0492] hover:brightness-110 p-1">
+              <FaPaperPlane className='!text-[#7d0492]' />
             </button>
           </form>
         </div>

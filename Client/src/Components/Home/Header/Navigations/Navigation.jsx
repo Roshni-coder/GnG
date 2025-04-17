@@ -34,7 +34,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 function Navigation() {
   const navigate = useNavigate()
-  const { userData, backendurl, setUserdata, setIsLoggedin } = useContext(AppContext)
+  const { userData, backendurl,logout } = useContext(AppContext)
   const [results,setResults] = useState([])
 
   const sendVerifyingotp = async ()=>{
@@ -55,17 +55,7 @@ function Navigation() {
       }
   }
 
-  const logout = async ()=>{
-      try {
-          axios.defaults.withCredentials = true
-          const {data} = await axios.post(backendurl + '/api/auth/logout')
-          data.success && setIsLoggedin(false)
-          data.success && setUserdata(false)
-          navigate('/')
-      } catch (error) {
-          toast.error(error.message)
-      }
-  }
+  
   
   return (
     <>
@@ -112,16 +102,9 @@ function Navigation() {
                         <BsBox className="text-[#7d0492] !text-[14px] " /> Orders
                         </li>
                         </Link>
-                        {!userData.isAccountVerify && (
-                          <li onClick={sendVerifyingotp} className="py-2 px-2 flex items-center gap-2 hover:bg-gray-100 cursor-pointer">
-                           < MdOutlineMail className="text-[#7d0492] !text-[15px] "  /> Verify email
-                          </li>
-                        )}
                         <li onClick={logout} className="py-2 px-2 flex items-center gap-2  hover:bg-gray-100 cursor-pointer ">
                          <RiLogoutCircleLine className="text-[#7d0492] !text-[15px] " /> Logout
                         </li>
-                        
-
                       </ul>
                     </div>
                   </div>

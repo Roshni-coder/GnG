@@ -11,10 +11,10 @@ import Reset_pass from "./Components/LoginPage/Reset_pass.jsx";
 import MyProfile from "./Components/My Profile/MyProfile.jsx";
 import Cartpage from "./Components/Cart Page/Cartpage.jsx";
 import Orders from "./Components/Orders/Orders.jsx";
-import Wishlist from "./Components/Wish List/Wishlist.jsx";
-// import Checkout from "./Components/Checkout/Checkout.jsx";
 import ChatBot from "./Components/ChatBot/Chatbot.jsx";
 import AddAddress from "./Components/BillingPage/AddAddress.jsx";
+import WishlistPage from "./Components/Wish List/WishlistPage.jsx";
+import OrderSummery from './Components/Order Summery/OrderSummery.jsx'
 
 function App() {
   return (
@@ -27,12 +27,13 @@ function App() {
         <Route path='/Reset_pass' element={<Reset_pass/>}/>
         <Route path='/myProfile' element={<MyProfile/>}/>
         <Route path='/orders' element={<Orders/>}/>
-        <Route path='/wishlist' element={<Wishlist/>}/>
+        <Route path='/wishlist' element={<WishlistPage/>}/>
         <Route path="/productlist" element={<ProductList/>}/>
-        <Route path="/productDetails/:id" element={<ProductDetail/>}/>
+        <Route path="/products/:id" element={<ProductDetail/>}/>
         <Route path="/cartlist" element={<Cartpage/>}/>
         {/* <Route path="/checkout" element={<Checkout/>}/> */}
         <Route path="/addaddress" element={<AddAddress/>}/>
+        <Route path="/ordersummery" element={<OrderSummery/>}/>
       </Routes>
       <ChatBot/>
       <Footer/>

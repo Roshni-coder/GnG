@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { IoCloseSharp } from "react-icons/io5";
-import SideMenu from "../My Profile/Sidemenu";
+import SideMenu from "../My Profile/SideMenu.jsx";
 
 function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -40,7 +40,7 @@ function WishlistPage() {
     <section className="section py-3">
       <div className="container flex gap-5">
       <div className="col1 w-[20%]">
-        <SideMenu/>
+           <SideMenu />
         </div>
 
         <div className="col2 w-[80%] shadow-md py-5 px-5 rounded-md bg-white">

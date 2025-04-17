@@ -22,13 +22,10 @@ export const getuserdeta = async (req,res)=>{
 
 }
 
-
 export const getProfile = async (req, res) => {
   try {
-    const { userId } = req.body; 
-    console.log(userId);
+    const { userId } = req.body;
     const profile = await Profile.findOne({ user:userId });
-
     if (!profile) {
       return res.status(404).json({ success: false, message: 'Profile not found' });
     }
@@ -60,8 +57,6 @@ export const createProfile = async (req, res) => {
 export const UpdateProfile = async (req, res) => {
   try {
     const { userId, phone } = req.body;
-    console.log(userId);
-    
     const profile = await Profile.findOneAndUpdate(
       { user: userId },
       { phone },
@@ -139,6 +134,28 @@ export const deleteAddress = async (req, res) => {
     res.json({ success: true, message: 'Address deleted' });
   } catch (error) {
     console.error("Delete Address Error:", error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+export const setDefaultBilling = async (req, res) => {
+  try {
+    const { userId, addressId } = req.body;
+
+    const profile = await Profile.findOne({ user: userId });
+    if (!profile) {
+      return res.status(404).json({ success: false, message: 'Profile not found' });
+    }
+
+    profile.addresses = profile.addresses.map((addr) => ({
+      ...addr.toObject(),
+      isDefaultBilling: addr._id.toString() === addressId,
+    }));
+
+    await profile.save();
+
+    res.json({ success: true, message: 'Default billing address updated' });
+  } catch (error) {
+    console.error("Set Default Billing Error:", error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };

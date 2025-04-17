@@ -19,17 +19,14 @@ import AddCategory from './Pages/Category/AddCategory.jsx';
 import SubCategoryList from './Pages/Category/SubCategoryList.jsx';
 import AddSubCategory from './Pages/Category/AddSubCategory.jsx';
 import Login from './Pages/Login/Login.jsx';
-import SelllerProfile from '../src/Pages/Seller Profile/SellerProfile.jsx'
-
-
-
+import SellerProfile from './Pages/Seller Profile/SellerProfile.jsx';
+import ProtectedRoute from './Pages/ProtectedRoute.jsx';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const MyContext = createContext();
-
 
 function Layout({ children }) {
   return (
@@ -47,96 +44,88 @@ function Layout({ children }) {
   );
 }
 
-function App() {
-  const [isOpenAddProductPanel, setIsOpenAddProductPanel] = useState({
-    open:false,
-    model:''
-  });
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Layout><DashBoard /></Layout>
-    },
-    {
-      path: '/login',
-      element: <Login />
-    },
-    {
-      path: '/products',
-      element: <Layout><ProductList /></Layout>
-    },
-    {
-      path: '/orders',
-      element: <Layout><OrdersList/></Layout>
-    },
-    
-    {
-      path: '/categorylist',
-      element: <Layout><CategoryList/></Layout>
-    },
-    {
-      path: '/subcategorylist',
-      element: <Layout><SubCategoryList/></Layout>
-    },
-    {
-      path: '/seller-profile',
-      element: <Layout><SelllerProfile/></Layout>
-    },
-   
-  ]);
-
-  const values = {
-    isOpenAddProductPanel,
-    setIsOpenAddProductPanel // Ensure this is present
-  };
+  function App() {
+    const [isOpenAddProductPanel, setIsOpenAddProductPanel] = useState({
+      open: false,
+      model: ''
+    });
+  
+    const values = {
+      isOpenAddProductPanel,
+      setIsOpenAddProductPanel
+    };
+  
+    const router = createBrowserRouter([
+      {
+        path: '/',
+        element: <ProtectedRoute><Layout><DashBoard /></Layout></ProtectedRoute>
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/products',
+        element: <ProtectedRoute><Layout><ProductList /></Layout></ProtectedRoute>
+      },
+      {
+        path: '/orders',
+        element: <ProtectedRoute><Layout><OrdersList /></Layout></ProtectedRoute>
+      },
+      {
+        path: '/categorylist',
+        element: <ProtectedRoute><Layout><CategoryList /></Layout></ProtectedRoute>
+      },
+      {
+        path: '/subcategorylist',
+        element: <ProtectedRoute><Layout><SubCategoryList /></Layout></ProtectedRoute>
+      },
+      {
+        path: '/seller-profile',
+        element: <ProtectedRoute><Layout><SellerProfile /></Layout></ProtectedRoute>
+      },
+    ]);
+  
+    return (
+      <MyContext.Provider value={values}>
+        <RouterProvider router={router} />
+  
+        {/* Dialog for Adding Products */}
+        <Dialog
+          fullScreen
+          open={isOpenAddProductPanel.open}
+          onClose={() => setIsOpenAddProductPanel({ open: false })}
+          TransitionComponent={Transition}
+        >
+          <AppBar sx={{ position: 'relative' }} className=' !bg-white !shadow-md !py-3'>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => setIsOpenAddProductPanel({ open: false })}
+                aria-label="close"
+              >
+                <IoMdClose className='text-gray-800 !text-[18px]' />
+              </IconButton>
+              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                <span className='text-gray-800'>{isOpenAddProductPanel?.model}</span>
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          {
+            isOpenAddProductPanel?.model === 'Add Product' && <AddProduct />
+          }
+          {
+            isOpenAddProductPanel?.model === 'Add New Category' && <AddCategory />
+          }
+          {
+            isOpenAddProductPanel?.model === 'Add New Sub Category' && <AddSubCategory />
+          }
+        </Dialog>
+      </MyContext.Provider>
+    );
+  }
   
 
-  return (
-    <MyContext.Provider value={values}>
-      <RouterProvider router={router} />
-
-      {/* Dialog for Adding Products */}
-      <Dialog
-        fullScreen
-        open={isOpenAddProductPanel.open}
-        onClose={() => setIsOpenAddProductPanel({
-          open:false
-        })}
-        TransitionComponent={Transition}
-      >
-        <AppBar sx={{ position: 'relative' }} className=' !bg-white !shadow-md !py-3'>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => setIsOpenAddProductPanel({
-                open:false
-              })}
-              aria-label="close"
-            >
-              <IoMdClose className='text-gray-800 !text-[18px]'/>
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-             <span className='text-gray-800'>{isOpenAddProductPanel?.model}</span>
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        {
-          isOpenAddProductPanel?.model === 'Add Product' && <AddProduct/>
-        }
-        
-        {
-          isOpenAddProductPanel?.model === 'Add New Category' && <AddCategory/>
-        }
-        {
-          isOpenAddProductPanel?.model === 'Add New Sub Category' && <AddSubCategory/>
-        }
-      </Dialog>
-      
-    </MyContext.Provider>
-  );
-}
-
-export default App;
-
+export default App;

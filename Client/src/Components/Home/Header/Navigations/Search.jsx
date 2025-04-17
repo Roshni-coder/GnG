@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import { IoSearchSharp } from "react-icons/io5";
 import { SearchResultlist } from "./SearchResultlist";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [input, setInput] = useState("");
@@ -10,12 +11,13 @@ const Search = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const wrapperRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:7000/api/getproducts");
-        setProducts(res.data.data); 
+        setProducts(res.data.data);
       } catch (err) {
         console.error("Error fetching products:", err);
       }
@@ -65,7 +67,34 @@ const Search = () => {
   const handleSelect = (product) => {
     setInput(product.title);
     setShowResult(false);
-    console.log("Selected product:", product);   
+    console.log("Selected product:", product);
+    navigate(`/products/${product._id}`);
+  };
+
+  const handleSearchClick = () => {
+    if (!input.trim()) return;
+
+    const searchTerm = input.toLowerCase();
+
+    const matchedProduct = products.find((product) => {
+      const title = product.title?.toLowerCase() || "";
+      const category = product.category?.toLowerCase() || "";
+      const subcategory = product.subcategoryname?.toLowerCase() || "";
+
+      return (
+        title.includes(searchTerm) ||
+        category.includes(searchTerm) ||
+        subcategory.includes(searchTerm)
+      );
+    });
+
+    if (matchedProduct) {
+      setShowResult(false);
+      console.log("Searched product:", matchedProduct);
+      navigate(`/products/${matchedProduct._id}`);
+    } else {
+      console.log("No matching product found.");
+    }
   };
 
   return (
@@ -81,7 +110,10 @@ const Search = () => {
         onFocus={() => setShowResult(true)}
         onChange={handleChange}
       />
-      <Button className="!absolute top-[4px] right-[5px] z-50 !w-[37px] !min-w-[35px] h-[35px] !rounded-full !text-black">
+      <Button
+        onClick={handleSearchClick}
+        className="!absolute top-[4px] right-[5px] z-50 !w-[37px] !min-w-[35px] h-[35px] !rounded-full !text-black"
+      >
         <IoSearchSharp className="text-[#4e4e4e] text-[20px]" />
       </Button>
 

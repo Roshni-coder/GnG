@@ -15,7 +15,6 @@ function Login() {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    
       try{
       if( state === 'Seller') {
         if (isRegister){
